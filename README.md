@@ -1,4 +1,4 @@
-This website experiment uses Go to combine console I/O with WebSockets. It simulates a scoreboard.
+This website experiment uses Go to combine command line input with a website, using WebSockets. It simulates a scoreboard.
 
 # You Will Need To:
 
