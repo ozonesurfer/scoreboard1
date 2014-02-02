@@ -6,64 +6,41 @@
     $(function() {
 
     var conn;
-//    var msg1 = $("#msg");
-//    var q = $("#msg");
-      var log = $("#log");
-//    var msg = "Ross: ";
-/*    var qstring = window.location.search.substring(1);
-    var parsed = qstring.split('&');
-    var str;
-    for (var i = 0; i < parsed.length; i++) {
-        var j = parsed[i].split('=');
-        if (j[0] == "id") {
-            str = j[1];
-        }
-        
-    }  
-*/ 
-	 function game(h, v) {
-		this.home = h
-		this.visitor = v	
-	}
-	
+    var score1 = $("#score1");
+    var score2 = $("#score2");
+ 
+
     function appendLog(msg) {
-        var d = log[0]
-        var doScroll = d.scrollTop == d.scrollHeight - d.clientHeight;
-        msg.appendTo(log)
-        if (doScroll) {
-            d.scrollTop = d.scrollHeight - d.clientHeight;
-        }
+        msg.appendTo(score2)
+
+    }
+    function showScore1(msg) {
+		msg.appendTo(score1)
     }
 
-/*    $("#form").submit(function() {
-        if (!conn) {
-            return false;
-        }
-        if (!q.val()) {
-            return false;
-        }
-        conn.send(str + ': ' + q.val());
-        q.val("");
-        return false
-    });
-*/
+    function showScore2(msg) {
+        msg.appendTo(score2)
+    }
+
+	
+
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://{{$}}/ws");
         conn.onclose = function(evt) {
-            appendLog($("<div><b>Connection closed.</b></div>"))
+//			score1.html("")
+            appendLog($("<span>&nbsp;&nbsp;<b>Connection closed.</b></span>"))
         }
         conn.onmessage = function(evt) {
-		//	var z = new game("0", "0")
-			
 			var d = $.parseJSON(evt.data)
 			var x = $.parseJSON(d)
 			var q = $.parseJSON('{"home":"7","visitor":"0"}')
-			// alert(q.home)
 		    var s = "Home: " + x.home + " Visitor: " + x.visitor
 		
-				appendLog($("<div/>").text(s))
-			
-            
+
+			score1.html("")
+			score2.html("")
+		    showScore1($("<span/>").text(x.home))
+            showScore2($("<span/>").text(x.visitor))	
         }
     } else {
         appendLog($("<div><b>Your browser does not support WebSockets.</b></div>"))
@@ -84,37 +61,23 @@ body {
     background: gray;
 }
 
-#log {
+#score1 {
     background: white;
-    margin: 0;
-    padding: 0.5em 0.5em 0.5em 0.5em;
-    position: absolute;
-    top: 0.5em;
-    left: 0.5em;
-    right: 0.5em;
-    bottom: 3em;
-    overflow: auto;
+    position: horizontal;
+    width: 25em;
+	height: 10em;
 }
 
-#form {
-    padding: 0 0.5em 0 0.5em;
-    margin: 0;
-    position: absolute;
-    bottom: 1em;
-    left: 0px;
-    width: 100%;
-    overflow: hidden;
+#score2 {
+    background: white;
+    position: horizontal;
+    width: 25em;
+	height: 10em;
 }
 
 </style>
 </head>
 <body>
-<div id="log"></div>
-<!--
-<form id="form" name="myform">
-    <input type="submit" value="Send" />
-    <input type="text" id="msg" name="msg" value="" size="64"/>
-</form>
--->
+<div>Home:&nbsp;<span id="score1"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Visitor:&nbsp;<span id="score2"></span></div>
 </body>
 </html>

@@ -13,7 +13,7 @@ To build the executable, execute the following:
 
 # Running
 
-First, run the <b>scoreboard1</b> command. Then, enter pairs of numbers; the first is either 1 for the home team or 2 for the visiting team, the second is the points just scored.
+First, run the <b>scoreboard1</b> command. Then, enter pairs of numbers; the first is either 1 for the home team or 2 for the visiting team, the second is the points just scored. Enter a zero (0) for the points just scored to exit the program.
 
 The scoreboard is viewable on your browser at:
 
